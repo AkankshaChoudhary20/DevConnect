@@ -1,0 +1,14 @@
+{
+  "name": "dev-connect-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon src/app.js "
+  },
+  "author": "Akanksha Choudhary",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
