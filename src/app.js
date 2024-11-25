@@ -7,14 +7,10 @@ const User = require("../src/models/user");
 //middleware chain
 //route handler
 //use():
+app.use(express.json());
 app.post("/signup", async (req, res, next) => {
   // sending the response server
-  const user = new User({
-    firstName: "Virat",
-    lastName: "Kohli",
-    userId: "12456",
-    password: "ABZ",
-  });
+  const user = new User(req.body);
 
   try {
     await user.save();
