@@ -1,28 +1,17 @@
 const express = require("express");
 const connectDB = require("../src/config/database");
 const app = express(); // creating new web server
-const User = require("../src/models/user");
-
-//routing sequence matter
-//middleware chain
-//route handler
-//use():
+const cookieParser = require("cookie-parser");
 app.use(express.json());
-app.post("/signup", async (req, res, next) => {
-  // sending the response server
-  const user = new User(req.body);
+app.use(cookieParser());
 
-  try {
-    await user.save();
-    res.send("User added successfully");
-  } catch (err) {
-    res.status(400).send("Error while saving the user", err.message);
-  }
-});
+const authRouter = require("./routes/auth");
+// const profileRouter = require("./routes/profile");
+// const requestsRouter = require("./routes/requests");
 
-// app.use((req, res, next) => {
-//   res.send("hi");
-// });
+app.use("/", authRouter);
+// app.use("/", profileRouter);
+// app.use("/", requestsRouter);
 
 connectDB()
   .then(() => {
