@@ -27,7 +27,7 @@ profileRouter.patch("/profile/edit", userAuth, async (req, res, next) => {
 
     await logggedInUser.save();
 
-    res.jaon({
+    res.json({
       message: `${logggedInUser.firstName} your profile was successfully updated`,
       data: logggedInUser,
     });

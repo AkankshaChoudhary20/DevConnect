@@ -61,7 +61,8 @@ userRouter.get("/feed", userAuth, async (req, res) => {
 
     const page = parseInt(req.query.page) || 1;
     let limit = parseInt(req.query.limit) || 10;
-    limit > 50 ? 50 : limit;
+    limit = limit > 50 ? 50 : limit;
+
     const skip = (page - 1) * limit;
 
     const connectionRequests = await ConnectionRequest.find({
@@ -74,11 +75,11 @@ userRouter.get("/feed", userAuth, async (req, res) => {
     const hideUsersFromFeed = new Set();
 
     connectionRequests.forEach((req) => {
-      hideUsersFromFeed.add(req.fromUserId.toString());
-      hideUsersFromFeed.add(req.toUserId.toString());
+      hideUsersFromFeed.add(req.fromUserId._id.toString());
+      hideUsersFromFeed.add(req.toUserId._id.toString());
     });
 
-    const users = User.find({
+    const users = await User.find({
       $and: [
         { _id: { $nin: Array.from(hideUsersFromFeed) } },
         { _id: { $ne: loggedInUser._id } },

@@ -2,6 +2,14 @@ const express = require("express");
 const connectDB = require("../src/config/database");
 const app = express(); // creating new web server
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
+
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 
