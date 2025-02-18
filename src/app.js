@@ -4,6 +4,8 @@ const app = express(); // creating new web server
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
+require("dotenv").config();
+
 app.use(
   cors({
     origin: "http://localhost:5173",
@@ -27,7 +29,7 @@ connectDB()
   .then(() => {
     console.log("DB connection established...");
 
-    app.listen(3000, () => {
+    app.listen(process.env.PORT, () => {
       console.log("server listening on port 3000");
     }); // server created on port 3000 is listening
   })
